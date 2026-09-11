@@ -341,3 +341,108 @@ html,body{max-width:100%;overflow-x:hidden}
   .street-btn{min-height:56px}
   .map-popup{width:min(230px,72vw);max-width:230px}
 }
+
+/* ===== 이동 도시 타임라인 페이드 효과 ===== */
+
+/* PC + 태블릿 + 모바일 공통 */
+.rail-scroll {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  position: relative;
+
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+  /* 왼쪽으로 사라지는 지역 + 오른쪽에서 나타나는 지역 페이드 */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 72px,
+    #000 calc(100% - 72px),
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 72px,
+    #000 calc(100% - 72px),
+    transparent 100%
+  );
+}
+
+.rail-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* 모든 지역을 하나의 긴 타임라인으로 만듦 */
+.rail-track {
+  position: relative;
+  display: flex;
+
+  width: max-content;
+  min-width: 100%;
+}
+
+
+/* 첫 지역부터 마지막 지역까지 하나의 선으로 연결 */
+.rail-track::before {
+  content: "";
+
+  position: absolute;
+
+  left: 63px;
+  right: 63px;
+
+  top: 22px;
+
+  height: 2px;
+  background: #b9cad4;
+
+  z-index: 0;
+}
+
+
+/* 각 지역은 연결선 위에 표시 */
+.rail-stop {
+  position: relative;
+  z-index: 1;
+
+  flex: 0 0 126px;
+  width: 126px;
+}
+
+
+/* 모바일 화면에서는 페이드 폭과 지역 간격만 줄임 */
+@media (max-width: 720px) {
+
+  .rail-scroll {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 38px,
+      #000 calc(100% - 38px),
+      transparent 100%
+    );
+
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 38px,
+      #000 calc(100% - 38px),
+      transparent 100%
+    );
+  }
+
+  .rail-stop {
+    flex: 0 0 112px;
+    width: 112px;
+  }
+
+  .rail-track::before {
+    left: 56px;
+    right: 56px;
+  }
+}
