@@ -252,6 +252,7 @@ function renderShell(){
 
       <div class="rail-strip" aria-label="임시정부 이동 도시">
         <div class="rail-scroll">
+         <div class="rail-track">
           ${routeCities.map((stop,i)=>`
             <button class="rail-stop ${stop.id===c.id?'active':''}" data-city="${stop.id}">
               <span class="stop-number">${String(i+1).padStart(2,'0')}</span>
@@ -260,8 +261,9 @@ function renderShell(){
               <small>${esc(stop.period)}</small>
             </button>`).join('')}
         </div>
+       </div>
       </div>
-
+    
       <main class="workspace">
         <aside class="activity-panel">
           <div class="city-card">
